@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MT FREE Tools - PDF to Excel Converter</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- FileSaver.js for saving files -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <style>
+        .tool-page-content {
+            padding: 80px 20px;
+            max-width: 900px;
+            margin: 0 auto;
+            min-height: calc(100vh - 200px); /* Adjust based on header/footer height */
+        }
+        .tool-page-content h1 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.8em;
+            color: var(--color-text);
+        }
+        .converter-container {
+            background-color: var(--color-background);
+            border: 1px solid #eee;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+        .drag-drop-area {
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            width: 100%;
+            transition: border-color 0.3s ease;
+        }
+        .drag-drop-area.highlight {
+            border-color: var(--color-accent);
+        }
+        .drag-drop-area p {
+            margin-top: 10px;
+            color: #666;
+        }
+        .file-input-btn {
+            background-color: var(--color-accent);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: inline-block;
+            margin-top: 15px;
+        }
+        .file-input-btn:hover {
+            background-color: #0e9f6e;
+        }
+        #fileInput {
+            display: none;
+        }
+        .preview-area {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+            justify-content: center;
+            width: 100%;
+        }
+        .file-preview {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.8em;
+            color: #555;
+            padding: 5px;
+            text-align: center;
+        }
+        .file-preview .file-icon {
+            font-size: 3em;
+            color: #888;
+            margin-bottom: 5px;
+        }
+        .file-preview .remove-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: rgba(255, 0, 0, 0.7);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 0.8em;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .options-section {
+            width: 100%;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            text-align: center;
+        }
+        .action-buttons {
+            margin-top: 30px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .result-box {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            font-size: 1.1em;
+            color: var(--color-text);
+            text-align: center;
+            width: 100%;
+        }
+        @media (max-width: 767px) {
+            .tool-page-content {
+                padding: 50px 15px;
+            }
+            .tool-page-content h1 {
+                font-size: 2em;
+            }
+            .converter-container {
+                padding: 20px;
+            }
+            .drag-drop-area {
+                padding: 20px;
+            }
+            .preview-area {
+                gap: 10px;
+            }
+            .file-preview {
+                width: 100px;
+                height: 100px;
+            }
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <span class="logo-methong">METHONG</span> TOOLS
+            </div>
+            <nav class="main-nav">
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li class="dropdown">
+                        <a href="../categories.html" class="dropbtn">Category</a>
+                        <div class="dropdown-content">
+                            <a href="../index.html#finance-calculator">Finance Calculator</a>
+                            <a href="../index.html#file-converter">File Converter</a>
+                            <a href="../index.html#text-tools">Text Tools</a>
+                            <a href="../index.html#seo-tools">SEO Tools</a>
+                            <a href="../index.html#security-password-tools">Security & Password Tools</a>
+                            <a href="../index.html#conversion-calculator-tools">Conversion & Calculator tools</a>
+                            <a href="../index.html#proxy-ip-tools">Proxy & IP Tools</a>
+                            <a href="../index.html#image-graphics-tools">Image and Graphics Tools</a>
+                            <a href="../index.html#developer-tools">Developer Tools</a>
+                        </div>
+                    </li>
+                    <li><a href="../blog.html">Blog</a></li>
+                    <li><a href="../contact.html">Contact Us</a></li>
+                </ul>
+                <div class="hamburger-menu">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="tool-page-content">
+            <h1>PDF to Excel Converter</h1>
+            <div class="converter-container">
+                <div class="drag-drop-area" id="dragDropArea">
+                    <i class="fas fa-file-pdf fa-3x"></i>
+                    <p>Drag & Drop your PDF files here</p>
+                    <p>or</p>
+                    <label for="fileInput" class="file-input-btn">Browse Files</label>
+                    <input type="file" id="fileInput" accept=".pdf" multiple>
+                </div>
+
+                <div class="preview-area" id="previewArea"></div>
+
+                <div class="action-buttons">
+                    <button class="btn-primary" id="convertBtn">Convert to Excel</button>
+                    <button class="btn-secondary" id="clearAllBtn">Clear All</button>
+                </div>
+
+                <div class="result-box" id="resultBox">
+                    <p>Upload PDF files to convert them to Excel.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-col">
+                <div class="logo">
+                    <span class="logo-methong">METHONG</span> TOOLS
+                </div>
+                <p>Your one-stop solution for free online tools to simplify your daily tasks.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Finance Tools</h4>
+                <ul>
+                    <li><a href="../index.html#finance-calculator">SIP Calculator</a></li>
+                    <li><a href="../index.html#finance-calculator">Lumpsum Calculator</a></li>
+                    <li><a href="../index.html#finance-calculator">SWP Calculator</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>File Converter</h4>
+                <ul>
+                    <li><a href="../index.html#file-converter">PNG to JPEG</a></li>
+                    <li><a href="../index.html#file-converter">PNG to WEBP</a></li>
+                    <li><a href="../index.html#file-converter">PNG to PDF</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="../about.html">About Us</a></li>
+                    <li><a href="../contact.html">Contact Us</a></li>
+                    <li><a href="../privacy.html">Privacy Policy</a></li>
+                    <li><a href="../terms.html">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2025 MT FREE Tools. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+    <script>
+        const dragDropArea = document.getElementById('dragDropArea');
+        const fileInput = document.getElementById('fileInput');
+        const previewArea = document.getElementById('previewArea');
+        const convertBtn = document.getElementById('convertBtn');
+        const clearAllBtn = document.getElementById('clearAllBtn');
+        const resultBox = document.getElementById('resultBox');
+
+        let filesToConvert = [];
+
+        // Prevent default drag behaviors
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dragDropArea.addEventListener(eventName, preventDefaults, false);
+            document.body.addEventListener(eventName, preventDefaults, false); // For global drag
+        });
+
+        // Highlight drop area when item is dragged over it
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dragDropArea.addEventListener(eventName, () => dragDropArea.classList.add('highlight'), false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dragDropArea.addEventListener(eventName, () => dragDropArea.classList.remove('highlight'), false);
+        });
+
+        // Handle dropped files
+        dragDropArea.addEventListener('drop', handleDrop, false);
+        fileInput.addEventListener('change', (e) => handleFiles(e.target.files), false);
+
+        convertBtn.addEventListener('click', convertFiles);
+        clearAllBtn.addEventListener('click', clearAll);
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            handleFiles(files);
+        }
+
+        function handleFiles(files) {
+            ([...files]).forEach(file => {
+                const fileName = file.name.toLowerCase();
+                const isPdf = file.type === 'application/pdf' || fileName.endsWith('.pdf');
+
+                if (isPdf) {
+                    filesToConvert.push(file);
+                    previewFile(file);
+                } else {
+                    alert('Only PDF documents are supported.');
+                }
+            });
+            updateConvertButtonState();
+        }
+
+        function previewFile(file) {
+            const filePreview = document.createElement('div');
+            filePreview.classList.add('file-preview');
+            filePreview.dataset.filename = file.name; // Store filename for removal
+
+            const fileIcon = document.createElement('i');
+            fileIcon.classList.add('fas', 'fa-file-pdf', 'file-icon');
+
+            const fileNameSpan = document.createElement('span');
+            fileNameSpan.textContent = file.name;
+
+            const removeBtn = document.createElement('button');
+            removeBtn.classList.add('remove-btn');
+            removeBtn.innerHTML = '&times;';
+            removeBtn.onclick = () => removeFile(file.name, filePreview);
+
+            filePreview.appendChild(fileIcon);
+            filePreview.appendChild(fileNameSpan);
+            filePreview.appendChild(removeBtn);
+            previewArea.appendChild(filePreview);
+        }
+
+        function removeFile(filename, previewElement) {
+            filesToConvert = filesToConvert.filter(file => file.name !== filename);
+            previewElement.remove();
+            updateConvertButtonState();
+        }
+
+        function updateConvertButtonState() {
+            if (filesToConvert.length > 0) {
+                convertBtn.disabled = false;
+                clearAllBtn.disabled = false;
+            } else {
+                convertBtn.disabled = true;
+                clearAllBtn.disabled = true;
+            }
+        }
+
+        function convertFiles() {
+            if (filesToConvert.length === 0) {
+                alert('Please upload PDF files first.');
+                return;
+            }
+
+            resultBox.innerHTML = '<p>Converting PDF files to Excel...</p>';
+            convertBtn.disabled = true;
+
+            // Simulate conversion process
+            setTimeout(() => {
+                const convertedFileName = filesToConvert[0].name.replace(/\.[^/.]+$/, '') + '.xlsx';
+                resultBox.innerHTML = `<p>Conversion successful! <a href="#" onclick="downloadPlaceholder('${convertedFileName}')">Download ${convertedFileName}</a></p>`;
+                convertBtn.disabled = false;
+            }, 1500);
+        }
+
+        function downloadPlaceholder(filename) {
+            alert(`Downloading ${filename}... (This is a placeholder download. Actual conversion requires server-side processing.)`);
+        }
+
+        function clearAll() {
+            filesToConvert = [];
+            previewArea.innerHTML = '';
+            resultBox.innerHTML = '<p>Upload PDF files to convert them to Excel.</p>';
+            updateConvertButtonState();
+        }
+
+        // Initial state
+        updateConvertButtonState();
+    </script>
+</body>
+</html>

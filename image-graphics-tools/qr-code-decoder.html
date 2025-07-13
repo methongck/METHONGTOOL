@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MT FREE Tools - QR Code Decoder</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- jsQR for QR Code decoding -->
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+    <style>
+        .tool-page-content {
+            padding: 80px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            min-height: calc(100vh - 200px); /* Adjust based on header/footer height */
+        }
+        .tool-page-content h1 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.8em;
+            color: var(--color-text);
+        }
+        .tool-container {
+            background-color: var(--color-background);
+            border: 1px solid #eee;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+        .drag-drop-area {
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            width: 100%;
+            transition: border-color 0.3s ease;
+        }
+        .drag-drop-area.highlight {
+            border-color: var(--color-accent);
+        }
+        .drag-drop-area p {
+            margin-top: 10px;
+            color: #666;
+        }
+        .file-input-btn {
+            background-color: var(--color-accent);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: inline-block;
+            margin-top: 15px;
+        }
+        .file-input-btn:hover {
+            background-color: #0e9f6e;
+        }
+        #fileInput {
+            display: none;
+        }
+        .preview-area {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .preview-area img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .result-box {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            font-size: 1.1em;
+            color: var(--color-text);
+            text-align: center;
+            width: 100%;
+        }
+        @media (max-width: 767px) {
+            .tool-page-content {
+                padding: 50px 15px;
+            }
+            .tool-page-content h1 {
+                font-size: 2em;
+            }
+            .tool-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <span class="logo-methong">METHONG</span> TOOLS
+            </div>
+            <nav class="main-nav">
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li class="dropdown">
+                        <a href="../categories.html" class="dropbtn">Category</a>
+                        <div class="dropdown-content">
+                            <a href="../index.html#finance-calculator">Finance Calculator</a>
+                            <a href="../index.html#file-converter">File Converter</a>
+                            <a href="../index.html#text-tools">Text Tools</a>
+                            <a href="../index.html#seo-tools">SEO Tools</a>
+                            <a href="../index.html#security-password-tools">Security & Password Tools</a>
+                            <a href="../index.html#conversion-calculator-tools">Conversion & Calculator tools</a>
+                            <a href="../index.html#proxy-ip-tools">Proxy & IP Tools</a>
+                            <a href="../index.html#image-graphics-tools">Image and Graphics Tools</a>
+                            <a href="../index.html#developer-tools">Developer Tools</a>
+                        </div>
+                    </li>
+                    <li><a href="../blog.html">Blog</a></li>
+                    <li><a href="../contact.html">Contact Us</a></li>
+                </ul>
+                <div class="hamburger-menu">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="tool-page-content">
+            <h1>QR Code Decoder</h1>
+            <div class="tool-container">
+                <div class="drag-drop-area" id="dragDropArea">
+                    <i class="fas fa-qrcode fa-3x"></i>
+                    <p>Drag & Drop your QR Code image here</p>
+                    <p>or</p>
+                    <label for="fileInput" class="file-input-btn">Browse File</label>
+                    <input type="file" id="fileInput" accept="image/*">
+                </div>
+
+                <div class="preview-area" id="previewArea">
+                    <img id="qrImagePreview" src="" alt="QR Code Preview" style="display: none;">
+                </div>
+
+                <button class="btn-primary" onclick="decodeQrCode()">Decode QR Code</button>
+
+                <div class="result-box" id="resultBox">
+                    <p>Upload a QR Code image to decode it.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-col">
+                <div class="logo">
+                    <span class="logo-methong">METHONG</span> TOOLS
+                </div>
+                <p>Your one-stop solution for free online tools to simplify your daily tasks.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Finance Tools</h4>
+                <ul>
+                    <li><a href="../index.html#finance-calculator">SIP Calculator</a></li>
+                    <li><a href="../index.html#finance-calculator">Lumpsum Calculator</a></li>
+                    <li><a href="../index.html#finance-calculator">SWP Calculator</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>File Converter</h4>
+                <ul>
+                    <li><a href="../index.html#file-converter">PNG to JPEG</a></li>
+                    <li><a href="../index.html#file-converter">PNG to WEBP</a></li>
+                    <li><a href="../index.html#file-converter">PNG to PDF</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="../about.html">About Us</a></li>
+                    <li><a href="../contact.html">Contact Us</a></li>
+                    <li><a href="../privacy.html">Privacy Policy</a></li>
+                    <li><a href="../terms.html">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2025 MT FREE Tools. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+    <script>
+        const dragDropArea = document.getElementById('dragDropArea');
+        const fileInput = document.getElementById('fileInput');
+        const qrImagePreview = document.getElementById('qrImagePreview');
+        const resultBox = document.getElementById('resultBox');
+
+        let uploadedFile = null;
+
+        // Prevent default drag behaviors
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dragDropArea.addEventListener(eventName, preventDefaults, false);
+            document.body.addEventListener(eventName, preventDefaults, false); // For global drag
+        });
+
+        // Highlight drop area when item is dragged over it
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dragDropArea.addEventListener(eventName, () => dragDropArea.classList.add('highlight'), false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dragDropArea.addEventListener(eventName, () => dragDropArea.classList.remove('highlight'), false);
+        });
+
+        // Handle dropped files
+        dragDropArea.addEventListener('drop', handleDrop, false);
+        fileInput.addEventListener('change', handleFiles, false);
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            handleFiles(files);
+        }
+
+        function handleFiles(fileList) {
+            if (fileList.length > 0) {
+                const file = fileList[0];
+                if (file.type.startsWith('image/')) {
+                    uploadedFile = file;
+                    previewImage(file);
+                } else {
+                    alert('Please upload an image file.');
+                }
+            }
+        }
+
+        function previewImage(file) {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onloadend = function() {
+                qrImagePreview.src = reader.result;
+                qrImagePreview.style.display = 'block';
+                resultBox.innerHTML = '<p>Image uploaded. Click Decode QR Code.</p>';
+            };
+        }
+
+        function decodeQrCode() {
+            if (!uploadedFile) {
+                alert('Please upload a QR Code image first.');
+                return;
+            }
+
+            resultBox.innerHTML = '<p>Decoding QR Code...</p>';
+
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    ctx.drawImage(img, 0, 0, img.width, img.height);
+
+                    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    const code = jsQR(imageData.data, imageData.width, imageData.height);
+
+                    if (code) {
+                        resultBox.innerHTML = `<p>Decoded Text: <strong>${code.data}</strong></p>`;
+                    } else {
+                        resultBox.innerHTML = '<p style="color: red;">No QR Code found in the image.</p>';
+                    }
+                };
+                img.src = event.target.result;
+            };
+            reader.readAsDataURL(uploadedFile);
+        }
+    </script>
+</body>
+</html>

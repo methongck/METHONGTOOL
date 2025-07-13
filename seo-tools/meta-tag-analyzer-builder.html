@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MT FREE Tools - Meta Tag Analyzer and Builder</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        .tool-page-content {
+            padding: 80px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            min-height: calc(100vh - 200px); /* Adjust based on header/footer height */
+        }
+        .tool-page-content h1 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.8em;
+            color: var(--color-text);
+        }
+        .tool-container {
+            background-color: var(--color-background);
+            border: 1px solid #eee;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .tool-container label {
+            font-weight: 600;
+            color: var(--color-text);
+        }
+        .tool-container input[type="text"],
+        .tool-container textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+            font-family: 'Inter', sans-serif;
+        }
+        .tool-container textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        .tool-container button {
+            align-self: flex-start;
+            margin-top: 10px;
+        }
+        .result-box {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            font-size: 1.1em;
+            color: var(--color-text);
+        }
+        .meta-output {
+            background-color: #eef;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-family: monospace;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+        @media (max-width: 767px) {
+            .tool-page-content {
+                padding: 50px 15px;
+            }
+            .tool-page-content h1 {
+                font-size: 2em;
+            }
+            .tool-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <span class="logo-methong">METHONG</span> TOOLS
+            </div>
+            <nav class="main-nav">
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li class="dropdown">
+                        <a href="../categories.html" class="dropbtn">Category</a>
+                        <div class="dropdown-content">
+                            <a href="../index.html#finance-calculator">Finance Calculator</a>
+                            <a href="../index.html#file-converter">File Converter</a>
+                            <a href="../index.html#text-tools">Text Tools</a>
+                            <a href="../index.html#seo-tools">SEO Tools</a>
+                            <a href="../index.html#security-password-tools">Security & Password Tools</a>
+                            <a href="../index.html#conversion-calculator-tools">Conversion & Calculator tools</a>
+                            <a href="../index.html#proxy-ip-tools">Proxy & IP Tools</a>
+                            <a href="../index.html#image-graphics-tools">Image and Graphics Tools</a>
+                            <a href="../index.html#developer-tools">Developer Tools</a>
+                        </div>
+                    </li>
+                    <li><a href="../blog.html">Blog</a></li>
+                    <li><a href="../contact.html">Contact Us</a></li>
+                </ul>
+                <div class="hamburger-menu">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="tool-page-content">
+            <h1>Meta Tag Analyzer and Builder</h1>
+            <div class="tool-container">
+                <h2>Meta Tag Builder</h2>
+                <label for="metaTitle">Meta Title:</label>
+                <input type="text" id="metaTitle" placeholder="e.g., Best Online Tools">
+
+                <label for="metaDescription">Meta Description:</label>
+                <textarea id="metaDescription" placeholder="e.g., Free online tools for all your daily needs."></textarea>
+
+                <label for="metaKeywords">Meta Keywords (comma-separated):</label>
+                <input type="text" id="metaKeywords" placeholder="e.g., tools, free, online, converter">
+
+                <button class="btn-primary" onclick="generateMetaTags()">Generate Meta Tags</button>
+
+                <label for="generatedMetaTags">Generated Meta Tags:</label>
+                <textarea id="generatedMetaTags" readonly rows="8"></textarea>
+
+                <div class="result-box" id="builderResultBox">
+                    <p>Fill in the fields and click 'Generate Meta Tags'.</p>
+                </div>
+
+                <h2 style="margin-top: 40px;">Meta Tag Analyzer</h2>
+                <label for="websiteUrl">Website URL:</label>
+                <input type="url" id="websiteUrl" placeholder="e.g., https://www.example.com">
+
+                <button class="btn-primary" onclick="analyzeMetaTags()">Analyze Meta Tags</button>
+
+                <div class="result-box" id="analyzerResultBox">
+                    <p>Enter a website URL and click 'Analyze Meta Tags'.</p>
+                </div>
+
+                <div class="meta-output" id="metaOutput"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-col">
+                <div class="logo">
+                    <span class="logo-methong">METHONG</span> TOOLS
+                </div>
+                <p>Your one-stop solution for free online tools to simplify your daily tasks.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Finance Tools</h4>
+                <ul>
+                    <li><a href="../index.html#finance-calculator">SIP Calculator</a></li>
+                    <li><a href="../index.html#finance-calculator">Lumpsum Calculator</a></li>
+                    <li><a href="../index.html#finance-calculator">SWP Calculator</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>File Converter</h4>
+                <ul>
+                    <li><a href="../index.html#file-converter">PNG to JPEG</a></li>
+                    <li><a href="../index.html#file-converter">PNG to WEBP</a></li>
+                    <li><a href="../index.html#file-converter">PNG to PDF</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="../about.html">About Us</a></li>
+                    <li><a href="../contact.html">Contact Us</a></li>
+                    <li><a href="../privacy.html">Privacy Policy</a></li>
+                    <li><a href="../terms.html">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2025 MT FREE Tools. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+    <script>
+        function generateMetaTags() {
+            const title = document.getElementById('metaTitle').value.trim();
+            const description = document.getElementById('metaDescription').value.trim();
+            const keywords = document.getElementById('metaKeywords').value.trim();
+            const generatedMetaTagsOutput = document.getElementById('generatedMetaTags');
+            const builderResultBox = document.getElementById('builderResultBox');
+
+            if (title === '' && description === '' && keywords === '') {
+                alert('Please fill in at least one field to generate meta tags.');
+                return;
+            }
+
+            let metaTags = '';
+            if (title) metaTags += `<meta name="title" content="${title}">\n`;
+            if (description) metaTags += `<meta name="description" content="${description}">\n`;
+            if (keywords) metaTags += `<meta name="keywords" content="${keywords}">\n`;
+
+            generatedMetaTagsOutput.value = metaTags;
+            builderResultBox.innerHTML = '<p>Meta tags generated successfully!</p>';
+        }
+
+        function analyzeMetaTags() {
+            const websiteUrl = document.getElementById('websiteUrl').value.trim();
+            const analyzerResultBox = document.getElementById('analyzerResultBox');
+            const metaOutput = document.getElementById('metaOutput');
+
+            if (websiteUrl === '') {
+                alert('Please enter a website URL to analyze.');
+                return;
+            }
+
+            analyzerResultBox.innerHTML = '<p>Analyzing meta tags for ' + websiteUrl + '...</p>';
+            metaOutput.innerHTML = '';
+
+            // Simulate fetching and parsing meta tags (requires server-side for real analysis)
+            setTimeout(() => {
+                const simulatedMetaTags = `
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="title" content="Simulated Title">
+<meta name="description" content="This is a simulated meta description for the website.">
+<meta name="keywords" content="simulated, keywords, example">
+<meta name="robots" content="index, follow">
+`;
+                metaOutput.textContent = simulatedMetaTags;
+                analyzerResultBox.innerHTML = '<p>Meta tag analysis complete. (This is a placeholder. Real analysis requires server-side fetching.)</p>';
+            }, 1500);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MT FREE Tools - Categories</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Specific styles for categories.html */
+        .category-page-content {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .category-page-content h1 {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 3em;
+            color: var(--color-text);
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .category-card {
+            background-color: var(--color-background);
+            border: 1px solid #eee;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 25px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .category-card h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: var(--color-accent);
+        }
+
+        .category-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .category-card ul li {
+            margin-bottom: 8px;
+        }
+
+        .category-card ul li a {
+            color: var(--color-text);
+            font-size: 1em;
+            transition: color 0.3s ease;
+        }
+
+        .category-card ul li a:hover {
+            color: var(--color-accent);
+        }
+
+        @media (max-width: 767px) {
+            .category-page-content h1 {
+                font-size: 2.2em;
+            }
+            .category-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <span class="logo-methong">METHONG</span> TOOLS
+            </div>
+            <nav class="main-nav">
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li class="dropdown">
+                        <a href="categories.html" class="dropbtn">Category</a>
+                        <!-- Dropdown content will be hidden on mobile via CSS -->
+                    </li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+                <div class="hamburger-menu">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="category-page-content">
+            <h1>All Tool Categories</h1>
+            <div class="category-grid">
+                <div class="category-card">
+                    <h3>Finance Calculator</h3>
+                    <ul>
+                        <li><a href="finance-calculators/sip-calculator.html">SIP Calculator</a></li>
+                        <li><a href="finance-calculators/lumpsum-calculator.html">Lumpsum Calculator</a></li>
+                        <li><a href="finance-calculators/swp-calculator.html">SWP Calculator</a></li>
+                        <li><a href="finance-calculators/mf-calculator.html">MF Calculator</a></li>
+                        <li><a href="finance-calculators/ssy-calculator.html">SSY Calculator</a></li>
+                        <li><a href="finance-calculators/ppf-calculator.html">PPF Calculator</a></li>
+                    </ul>
+                </div>
+                <div class="category-card">
+                    <h3>File Converter</h3>
+                    <ul>
+                        <li><a href="file-converters/png-to-jpeg.html">PNG to JPEG</a></li>
+                        <li><a href="file-converters/png-to-webp.html">PNG to WEBP</a></li>
+                        <li><a href="file-converters/png-to-pdf.html">PNG to PDF</a></li>
+                        
+                        <li><a href="file-converters/pdf-to-word.html">PDF to Word</a></li>
+                        <li><a href="file-converters/excel-to-pdf.html">Excel to PDF</a></li>
+                        <li><a href="file-converters/pdf-to-excel.html">PDF to Excel</a></li>
+                        <li><a href="file-converters/powerpoint-to-pdf.html">PowerPoint to PDF</a></li>
+                        <li><a href="file-converters/pdf-to-powerpoint.html">PDF to PowerPoint</a></li>
+                        <li><a href="file-converters/text-to-pdf.html">Text to PDF</a></li>
+                        <li><a href="file-converters/pdf-to-text.html">PDF to Text</a></li>
+                        <li><a href="file-converters/pdf-compressor.html">PDF Compressor</a></li>
+                        <li><a href="file-converters/pdf-merger-splitter.html">PDF Merger / Splitter</a></li>
+                        <li><a href="file-converters/image-compressor.html">Image Compressor</a></li>
+                        <li><a href="file-converters/jpg-to-pdf.html">JPG to PDF</a></li>
+                        <li><a href="file-converters/pdf-to-jpg.html">PDF to JPG</a></li>
+                    </ul>
+                </div>
+                <div class="category-card">
+                    <h3>Text Tools</h3>
+                    <ul>
+                        <li><a href="text-tools/text-rewriter.html">Text Rewriter</a></li>
+                        <li><a href="text-tools/text-to-speech.html">Text-to-Speech</a></li>
+                        <li><a href="text-tools/case-converter.html">Case Converter</a></li>
+                        <li><a href="text-tools/difference-checker.html">Difference Checker</a></li>
+                        <li><a href="text-tools/lorem-ipsum-generator.html">Lorem Ipsum Generator</a></li>
+                        <li><a href="text-tools/word-counter.html">Word Counter</a></li>
+                    </ul>
+                </div>
+                <div class="category-card">
+                    <h3>SEO Tools</h3>
+                    <ul>
+                        <li><a href="seo-tools/backlink-checker.html">Backlink Checker</a></li>
+                        <li><a href="seo-tools/meta-tag-analyzer-builder.html">Meta Tag Analyzer and Builder</a></li>
+                        <li><a href="seo-tools/sitemap-generator.html">Sitemap Generator</a></li>
+                        <li><a href="seo-tools/robots-txt-builder.html">Robots.txt Builder</a></li>
+                        <li><a href="seo-tools/domain-authority-checker.html">Domain Authority Checker</a></li>
+                    </ul>
+                </div>
+                <div class="category-card">
+                    <h3>Security & Password Tools</h3>
+                    <ul>
+                        <li><a href="security-password-tools/password-strength-checker.html">Password Strength Checker</a></li>
+                        <li><a href="security-password-tools/password-hash-generator.html">Password Hash Generator</a></li>
+                        <li><a href="security-password-tools/credit-card-validator-faker.html">Credit Card Validator and Faker</a></li>
+                    </ul>
+                </div>
+                <div class="category-card">
+                    <h3>Conversion & Calculator tools</h3>
+                    <ul>
+                        <li><a href="conversion-calculator-tools/currency-converter.html">Currency Converter</a></li>
+                        <li><a href="conversion-calculator-tools/age-calculator.html">Age Calculator</a></li>
+                        <li><a href="conversion-calculator-tools/date-to-time-calculator.html">Date-to-Time Calculator</a></li>
+                        <li><a href="conversion-calculator-tools/number-to-word-converter.html">Number-to-Word Converter</a></li>
+                        <li><a href="conversion-calculator-tools/ip-user-agent-tools.html">IP & User-Agent Tools</a></li>
+                    </ul>
+                </div>
+                <div class="category-card">
+                    <h3>Proxy & IP Tools</h3>
+                    <ul>
+                        <li><a href="proxy-ip-tools/ip-location-lookup.html">IP Location Lookup</a></li>
+                        <li><a href="proxy-ip-tools/user-agent-parser.html">User-Agent Parser</a></li>
+                        <li><a href="proxy-ip-tools/domain-information-tool.html">Domain Information Tool</a></li>
+                    </ul>
+                </div>
+                <div class="category-card">
+                    <h3>Image and Graphics Tools</h3>
+                    <ul>
+                        <li><a href="image-graphics-tools/color-picker.html">Color Picker</a></li>
+                        <li><a href="image-graphics-tools/qr-code-generator.html">QR Code Generator</a></li>
+                        <li><a href="image-graphics-tools/qr-code-decoder.html">QR Code Decoder</a></li>
+                        <li><a href="image-graphics-tools/youtube-thumbnail-downloader.html">YouTube Thumbnail Downloader</a></li>
+                        <li><a href="image-graphics-tools/favicon-generator.html">Favicon Generator</a></li>
+                    </ul>
+                </div>
+                <div class="category-card">
+                    <h3>Developer Tools</h3>
+                    <ul>
+                        <li><a href="developer-tools/html-minifier.html">HTML Minifier</a></li>
+                        <li><a href="developer-tools/css-minifier.html">CSS Minifier</a></li>
+                        <li><a href="developer-tools/js-minifier.html">JS Minifier</a></li>
+                        <li><a href="developer-tools/base64-url-encoder-decoder.html">Base64 and URL Encoder/Decoder</a></li>
+                        <li><a href="developer-tools/json-formatter.html">JSON Formatter</a></li>
+                        <li><a href="developer-tools/regexp-checker.html">REGEXP Checker</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-col">
+                <div class="logo">
+                    <span class="logo-methong">METHONG</span> TOOLS
+                </div>
+                <p>Your one-stop solution for free online tools to simplify your daily tasks.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Finance Tools</h4>
+                <ul>
+                    <li><a href="#">SIP Calculator</a></li>
+                    <li><a href="#">Lumpsum Calculator</a></li>
+                    <li><a href="#">SWP Calculator</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>File Converter</h4>
+                <ul>
+                    <li><a href="#">PNG to JPEG</a></li>
+                    <li><a href="#">PNG to WEBP</a></li>
+                    <li><a href="#">PNG to PDF</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2025 MT FREE Tools. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

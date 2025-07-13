@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MT FREE Tools - Blog</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        .page-content {
+            padding: 80px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+            min-height: calc(100vh - 200px); /* Adjust based on header/footer height */
+        }
+        .page-content h1 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.8em;
+            color: var(--color-text);
+        }
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .blog-post-card {
+            background-color: var(--color-background);
+            border: 1px solid #eee;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .blog-post-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+        }
+        .blog-post-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .blog-post-content {
+            padding: 20px;
+        }
+        .blog-post-content h2 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: var(--color-text);
+        }
+        .blog-post-content p {
+            font-size: 0.95em;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        .blog-post-content .read-more {
+            color: var(--color-accent);
+            font-weight: 600;
+        }
+        .blog-post-content .read-more:hover {
+            text-decoration: underline;
+        }
+        @media (max-width: 767px) {
+            .page-content {
+                padding: 50px 15px;
+            }
+            .page-content h1 {
+                font-size: 2em;
+            }
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <span class="logo-methong">METHONG</span> TOOLS
+            </div>
+            <nav class="main-nav">
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li class="dropdown">
+                        <a href="categories.html" class="dropbtn">Category</a>
+                        <div class="dropdown-content">
+                            <a href="index.html#finance-calculator">Finance Calculator</a>
+                            <a href="index.html#file-converter">File Converter</a>
+                            <a href="index.html#text-tools">Text Tools</a>
+                            <a href="index.html#seo-tools">SEO Tools</a>
+                            <a href="index.html#security-password-tools">Security & Password Tools</a>
+                            <a href="index.html#conversion-calculator-tools">Conversion & Calculator tools</a>
+                            <a href="index.html#proxy-ip-tools">Proxy & IP Tools</a>
+                            <a href="index.html#image-graphics-tools">Image and Graphics Tools</a>
+                            <a href="index.html#developer-tools">Developer Tools</a>
+                        </div>
+                    </li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+                <div class="hamburger-menu">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-content">
+            <h1>Our Blog</h1>
+            <div class="blog-grid">
+                <div class="blog-post-card">
+                    <img src="images/financial-planning.png" alt="Financial Planning" class="blog-post-image">
+                    <div class="blog-post-content">
+                        <h2>The Importance of Financial Planning</h2>
+                        <p>Learn how financial calculators can help you plan your investments and secure your future.</p>
+                        <a href="blog-post-1.html" class="read-more">Read More</a>
+                    </div>
+                </div>
+                <div class="blog-post-card">
+                    <img src="images/seo-tools.png" alt="SEO Tools" class="blog-post-image">
+                    <div class="blog-post-content">
+                        <h2>Mastering SEO: Tools and Tips</h2>
+                        <p>Discover essential SEO tools and strategies to boost your website's ranking.</p>
+                        <a href="blog-post-2.html" class="read-more">Read More</a>
+                    </div>
+                </div>
+                <div class="blog-post-card">
+                    <img src="images/file-converters.png" alt="File Converters" class="blog-post-image">
+                    <div class="blog-post-content">
+                        <h2>The Power of Online File Converters</h2>
+                        <p>Explore how file conversion tools can simplify your digital workflow.</p>
+                        <a href="blog-post-3.html" class="read-more">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-col">
+                <div class="logo">
+                    <span class="logo-methong">METHONG</span> TOOLS
+                </div>
+                <p>Your one-stop solution for free online tools to simplify your daily tasks.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Finance Tools</h4>
+                <ul>
+                    <li><a href="index.html#finance-calculator">SIP Calculator</a></li>
+                    <li><a href="index.html#finance-calculator">Lumpsum Calculator</a></li>
+                    <li><a href="index.html#finance-calculator">SWP Calculator</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>File Converter</h4>
+                <ul>
+                    <li><a href="index.html#file-converter">PNG to JPEG</a></li>
+                    <li><a href="index.html#file-converter">PNG to WEBP</a></li>
+                    <li><a href="index.html#file-converter">PNG to PDF</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2025 MT FREE Tools. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
