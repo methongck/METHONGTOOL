@@ -184,7 +184,7 @@
     <header>
         <div class="container header-content">
             <div class="logo">
-                <span class="logo-methong">METHONG</span> TOOLS
+                <a href="../index.html"><span class="logo-methong">METHONG</span> TOOLS</a>
             </div>
             <nav class="main-nav">
                 <ul class="nav-links">
@@ -218,35 +218,40 @@
     <main>
         <section class="tool-page-content">
             <h1>Image Compressor</h1>
-            <div class="converter-container">
-                <div class="drag-drop-area" id="dragDropArea">
-                    <i class="fas fa-image fa-3x"></i>
-                    <p>Drag & Drop your Image files here</p>
-                    <p>or</p>
-                    <label for="fileInput" class="file-input-btn">Browse Files</label>
-                    <input type="file" id="fileInput" accept=".jpg,.jpeg,.png,.webp" multiple>
-                </div>
+            <div class="tool-content-wrapper">
+                <div class="converter-container input-section">
+                    <h1>Image Compressor</h1>
+                    <div class="drag-drop-area" id="dragDropArea">
+                        <i class="fas fa-image fa-3x"></i>
+                        <p>Drag & Drop your Image files here</p>
+                        <p>or</p>
+                        <label for="fileInput" class="file-input-btn">Browse Files</label>
+                        <input type="file" id="fileInput" accept=".jpg,.jpeg,.png,.webp" multiple>
+                    </div>
 
-                <div class="preview-area" id="previewArea"></div>
+                    <div class="preview-area" id="previewArea"></div>
 
-                <div class="options-section">
-                    <h3>Compression Options</h3>
-                    <div>
-                        <label for="compressionQuality">Quality (0-1):</label>
-                        <input type="number" id="compressionQuality" value="0.7" step="0.1" min="0" max="1">
+                    <div class="options-section">
+                        <h3>Compression Options</h3>
+                        <div>
+                            <label for="compressionQuality">Quality (0-1):</label>
+                            <input type="number" id="compressionQuality" value="0.7" step="0.1" min="0" max="1">
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn-primary" id="convertBtn">Compress Image</button>
+                        <button class="btn-secondary" id="clearAllBtn">Clear All</button>
+                    </div>
+
+                    <div class="result-box" id="resultBox">
+                        <p>Upload image files to compress them.</p>
                     </div>
                 </div>
-
-                <div class="action-buttons">
-                    <button class="btn-primary" id="convertBtn">Compress Image</button>
-                    <button class="btn-secondary" id="clearAllBtn">Clear All</button>
+                <div class="output-display-area">
+                    <h2>Compressed Images</h2>
+                    <div class="converted-preview-area" id="convertedPreviewArea"></div>
                 </div>
-
-                <div class="result-box" id="resultBox">
-                    <p>Upload image files to compress them.</p>
-                </div>
-
-                <div class="converted-preview-area" id="convertedPreviewArea"></div>
             </div>
         </section>
     </main>
@@ -301,6 +306,12 @@
         const clearAllBtn = document.getElementById('clearAllBtn');
         const resultBox = document.getElementById('resultBox');
         const compressionQualityInput = document.getElementById('compressionQuality');
+        const convertedPreviewArea = document.getElementById('convertedPreviewArea');
+
+        // Modal elements
+        const imageModal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+        const closeModal = document.getElementsByClassName('close-modal')[0];
 
         let filesToConvert = [];
         let convertedFiles = []; // To store converted image blobs and filenames
@@ -326,6 +337,17 @@
 
         convertBtn.addEventListener('click', compressImages);
         clearAllBtn.addEventListener('click', clearAll);
+
+        // Modal event listeners
+        closeModal.onclick = function() {
+            imageModal.style.display = "none";
+        }
+
+        imageModal.onclick = function(event) {
+            if (event.target === imageModal) {
+                imageModal.style.display = "none";
+            }
+        }
 
         function preventDefaults(e) {
             e.preventDefault();
@@ -363,6 +385,7 @@
 
                 const img = document.createElement('img');
                 img.src = reader.result;
+                img.onclick = () => openModal(img.src);
 
                 const removeBtn = document.createElement('button');
                 removeBtn.classList.add('remove-btn');
@@ -402,7 +425,6 @@
             convertedFiles = []; // Clear previous conversions
 
             const compressionQuality = parseFloat(compressionQualityInput.value);
-            let downloadLinksHtml = '';
 
             for (const file of filesToConvert) {
                 const img = new Image();
@@ -424,7 +446,6 @@
                 const compressedFileName = file.name.replace(/\.[^/.]+$/, '') + '_compressed' + outputExtension;
                 
                 convertedFiles.push({ blob: compressedBlob, filename: compressedFileName });
-                downloadLinksHtml += `<button class="btn-primary" onclick="downloadConvertedFile(convertedFiles[${convertedFiles.length - 1}].blob, convertedFiles[${convertedFiles.length - 1}].filename)">${compressedFileName}</button>`;
             }
 
             resultBox.innerHTML = '<p>Compression successful! Download your files:</p>';
@@ -437,6 +458,7 @@
                 const imgElement = document.createElement('img');
                 imgElement.src = URL.createObjectURL(convertedFile.blob);
                 imgElement.alt = convertedFile.filename;
+                imgElement.onclick = () => openModal(imgElement.src);
 
                 const downloadBtn = document.createElement('button');
                 downloadBtn.classList.add('btn-primary');
@@ -472,8 +494,19 @@
             updateConvertButtonState();
         }
 
+        function openModal(imageSrc) {
+            modalImage.src = imageSrc;
+            imageModal.style.display = "block";
+        }
+
         // Initial state
         updateConvertButtonState();
     </script>
 </body>
 </html>
+
+<!-- Image Modal Structure -->
+<div id="imageModal" class="modal">
+    <span class="close-modal">&times;</span>
+    <img class="modal-content" id="modalImage">
+</div>

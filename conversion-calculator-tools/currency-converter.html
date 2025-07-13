@@ -73,7 +73,7 @@
     <header>
         <div class="container header-content">
             <div class="logo">
-                <span class="logo-methong">METHONG</span> TOOLS
+                <a href="../index.html"><span class="logo-methong">METHONG</span> TOOLS</a>
             </div>
             <nav class="main-nav">
                 <ul class="nav-links">
@@ -113,27 +113,13 @@
 
                 <label for="fromCurrency">From Currency:</label>
                 <select id="fromCurrency">
-                    <option value="USD">USD - United States Dollar</option>
-                    <option value="EUR">EUR - Euro</option>
-                    <option value="GBP">GBP - British Pound</option>
-                    <option value="JPY">JPY - Japanese Yen</option>
-                    <option value="CAD">CAD - Canadian Dollar</option>
-                    <option value="AUD">AUD - Australian Dollar</option>
-                    <option value="INR">INR - Indian Rupee</option>
                 </select>
 
                 <label for="toCurrency">To Currency:</label>
                 <select id="toCurrency">
-                    <option value="INR">INR - Indian Rupee</option>
-                    <option value="USD">USD - United States Dollar</option>
-                    <option value="EUR">EUR - Euro</option>
-                    <option value="GBP">GBP - British Pound</option>
-                    <option value="JPY">JPY - Japanese Yen</option>
-                    <option value="CAD">CAD - Canadian Dollar</option>
-                    <option value="AUD">AUD - Australian Dollar</option>
                 </select>
 
-                <button class="btn-primary" onclick="convertCurrency()">Convert</button>
+                <button class="btn-primary" id="convertBtn">Convert</button>
 
                 <div class="result-box" id="resultBox">
                     <p>Converted Amount: <span id="convertedAmount">0</span></p>
@@ -184,37 +170,4 @@
     </footer>
 
     <script src="../js/script.js"></script>
-    <script>
-        function convertCurrency() {
-            const amount = parseFloat(document.getElementById('amount').value);
-            const fromCurrency = document.getElementById('fromCurrency').value;
-            const toCurrency = document.getElementById('toCurrency').value;
-            const convertedAmountSpan = document.getElementById('convertedAmount');
-
-            if (isNaN(amount) || amount <= 0) {
-                alert('Please enter a valid amount.');
-                return;
-            }
-
-            // Placeholder exchange rates (for demonstration purposes only)
-            const exchangeRates = {
-                USD: { EUR: 0.92, GBP: 0.79, JPY: 156.80, CAD: 1.37, AUD: 1.51, INR: 83.50, USD: 1 },
-                EUR: { USD: 1.08, GBP: 0.86, JPY: 170.00, CAD: 1.48, AUD: 1.63, INR: 90.50, EUR: 1 },
-                GBP: { USD: 1.27, EUR: 1.16, JPY: 198.00, CAD: 1.73, AUD: 1.90, INR: 106.00, GBP: 1 },
-                JPY: { USD: 0.0064, EUR: 0.0059, GBP: 0.0051, CAD: 0.0087, AUD: 0.0096, INR: 0.53, JPY: 1 },
-                CAD: { USD: 0.73, EUR: 0.67, GBP: 0.58, JPY: 115.00, AUD: 1.10, INR: 61.00, CAD: 1 },
-                AUD: { USD: 0.66, EUR: 0.61, GBP: 0.53, JPY: 104.00, CAD: 0.91, INR: 55.00, AUD: 1 },
-                INR: { USD: 0.012, EUR: 0.011, GBP: 0.0094, JPY: 1.88, CAD: 0.016, AUD: 0.018, INR: 1 }
-            };
-
-            if (!exchangeRates[fromCurrency] || !exchangeRates[fromCurrency][toCurrency]) {
-                alert('Conversion not available for selected currencies.');
-                return;
-            }
-
-            const convertedAmount = amount * exchangeRates[fromCurrency][toCurrency];
-            convertedAmountSpan.textContent = convertedAmount.toFixed(2);
-        }
-    </script>
-</body>
-</html>
+    

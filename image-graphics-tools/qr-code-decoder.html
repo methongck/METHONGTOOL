@@ -102,7 +102,7 @@
     <header>
         <div class="container header-content">
             <div class="logo">
-                <span class="logo-methong">METHONG</span> TOOLS
+                <a href="../index.html"><span class="logo-methong">METHONG</span> TOOLS</a>
             </div>
             <nav class="main-nav">
                 <ul class="nav-links">
@@ -268,28 +268,24 @@
 
             resultBox.innerHTML = '<p>Decoding QR Code...</p>';
 
-            const reader = new FileReader();
-            reader.onload = function(event) {
-                const img = new Image();
-                img.onload = function() {
-                    const canvas = document.createElement('canvas');
-                    const ctx = canvas.getContext('2d');
-                    canvas.width = img.width;
-                    canvas.height = img.height;
-                    ctx.drawImage(img, 0, 0, img.width, img.height);
-
-                    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                    const code = jsQR(imageData.data, imageData.width, imageData.height);
-
-                    if (code) {
-                        resultBox.innerHTML = `<p>Decoded Text: <strong>${code.data}</strong></p>`;
-                    } else {
-                        resultBox.innerHTML = '<p style="color: red;">No QR Code found in the image.</p>';
-                    }
-                };
-                img.src = event.target.result;
-            };
-            reader.readAsDataURL(uploadedFile);
+            document.getElementById('qrFile').addEventListener('change', function(e) {
+              const file = e.target.files[0];
+              if (!file) return;
+              
+              // Validate file type
+              if(!file.type.match('image.*')) {
+                alert('শুধুমাত্র ইমেজ ফাইল আপলোড করুন');
+                return;
+              }
+              
+              const reader = new FileReader();
+              reader.onload = function(e) {
+                // Add image preview
+                document.getElementById('qrPreview').src = e.target.result;
+                // Add decoding logic here
+              };
+              reader.readAsDataURL(file);
+            });
         }
     </script>
 </body>

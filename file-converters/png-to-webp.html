@@ -11,180 +11,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
     <!-- FileSaver.js for saving files -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
-    <style>
-        .tool-page-content {
-            padding: 80px 20px;
-            max-width: 900px;
-            margin: 0 auto;
-            min-height: calc(100vh - 200px); /* Adjust based on header/footer height */
-        }
-        .tool-page-content h1 {
-            text-align: center;
-            margin-bottom: 40px;
-            font-size: 2.8em;
-            color: var(--color-text);
-        }
-        .converter-container {
-            background-color: var(--color-background);
-            border: 1px solid #eee;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            align-items: center;
-        }
-        .drag-drop-area {
-            border: 2px dashed #ccc;
-            border-radius: 8px;
-            padding: 40px;
-            text-align: center;
-            cursor: pointer;
-            width: 100%;
-            transition: border-color 0.3s ease;
-        }
-        .drag-drop-area.highlight {
-            border-color: var(--color-accent);
-        }
-        .drag-drop-area p {
-            margin-top: 10px;
-            color: #666;
-        }
-        .file-input-btn {
-            background-color: var(--color-accent);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            display: inline-block;
-            margin-top: 15px;
-        }
-        .file-input-btn:hover {
-            background-color: #0e9f6e;
-        }
-        #fileInput {
-            display: none;
-        }
-        .preview-area {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-top: 20px;
-            justify-content: center;
-            width: 100%;
-        }
-        .image-preview {
-            position: relative;
-            width: 150px; /* Increased size */
-            height: 150px; /* Increased size */
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column; /* Stack items vertically */
-            justify-content: center;
-            align-items: center;
-            padding: 10px; /* Add some padding */
-        }
-        .converted-preview-area {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px; /* Increased gap for better spacing */
-            margin-top: 30px;
-            justify-content: center;
-            width: 100%;
-        }
-        .image-preview img {
-            max-width: 100%;
-            max-height: 100px; /* Limit image height within the preview */
-            object-fit: contain; /* Ensure image fits without cropping */
-            margin-bottom: 10px; /* Space between image and button */
-        }
-        .image-preview .btn-primary {
-            margin-top: auto; /* Push button to the bottom */
-        }
-        .image-preview .remove-btn {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            background-color: rgba(255, 0, 0, 0.7);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            font-size: 0.8em;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .options-section {
-            width: 100%;
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-            text-align: center;
-        }
-        .options-section label {
-            margin-right: 10px;
-        }
-        .options-section input[type="number"] {
-            width: 80px;
-            padding: 5px;
-            border: 1px solid #ddd;
-            border-radius: 3px;
-        }
-        .action-buttons {
-            margin-top: 30px;
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        .result-box {
-            margin-top: 30px;
-            padding: 20px;
-            background-color: #f9f9f9;
-            border: 1px solid #eee;
-            border-radius: 8px;
-            font-size: 1.1em;
-            color: var(--color-text);
-            text-align: center;
-            width: 100%;
-        }
-        @media (max-width: 767px) {
-            .tool-page-content {
-                padding: 50px 15px;
-            }
-            .tool-page-content h1 {
-                font-size: 2em;
-            }
-            .converter-container {
-                padding: 20px;
-            }
-            .drag-drop-area {
-                padding: 20px;
-            }
-            .preview-area {
-                gap: 10px;
-            }
-            .image-preview {
-                width: 120px; /* Adjusted for mobile */
-                height: 120px; /* Adjusted for mobile */
-            }
-            .action-buttons {
-                flex-direction: column;
-            }
-        }
-    </style>
+    
 </head>
 <body>
     <header>
         <div class="container header-content">
             <div class="logo">
-                <span class="logo-methong">METHONG</span> TOOLS
+                <a href="../index.html"><span class="logo-methong">METHONG</span> TOOLS</a>
             </div>
             <nav class="main-nav">
                 <ul class="nav-links">
@@ -218,35 +51,40 @@
     <main>
         <section class="tool-page-content">
             <h1>PNG to WEBP Converter</h1>
-            <div class="converter-container">
-                <div class="drag-drop-area" id="dragDropArea">
-                    <i class="fas fa-cloud-upload-alt fa-3x"></i>
-                    <p>Drag & Drop your PNG images here</p>
-                    <p>or</p>
-                    <label for="fileInput" class="file-input-btn">Browse Files</label>
-                    <input type="file" id="fileInput" accept="image/*" multiple>
-                </div>
+            <div class="tool-content-wrapper">
+                <div class="converter-container input-section">
+                    <h1>PNG to WEBP Converter</h1>
+                    <div class="drag-drop-area" id="dragDropArea">
+                        <i class="fas fa-cloud-upload-alt fa-3x"></i>
+                        <p>Drag & Drop your PNG images here</p>
+                        <p>or</p>
+                        <label for="fileInput" class="file-input-btn">Browse Files</label>
+                        <input type="file" id="fileInput" accept="image/*" multiple>
+                    </div>
 
-                <div class="preview-area" id="previewArea"></div>
+                    <div class="preview-area" id="previewArea"></div>
 
-                <div class="options-section">
-                    <h3>Conversion Options</h3>
-                    <div>
-                        <label for="webpQuality">WEBP Quality (0-1):</label>
-                        <input type="number" id="webpQuality" value="0.8" step="0.1" min="0" max="1">
+                    <div class="options-section">
+                        <h3>Conversion Options</h3>
+                        <div>
+                            <label for="webpQuality">WEBP Quality (0-1):</label>
+                            <input type="number" id="webpQuality" value="0.8" step="0.1" min="0" max="1">
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn-primary" id="convertBtn">Convert to WEBP</button>
+                        <button class="btn-secondary" id="clearAllBtn">Clear All</button>
+                    </div>
+
+                    <div class="result-box" id="resultBox">
+                        <p>Upload PNG images to convert them to WEBP.</p>
                     </div>
                 </div>
-
-                <div class="action-buttons">
-                    <button class="btn-primary" id="convertBtn">Convert to WEBP</button>
-                    <button class="btn-secondary" id="clearAllBtn">Clear All</button>
+                <div class="output-display-area">
+                    <h2>Converted Images</h2>
+                    <div class="converted-preview-area" id="convertedPreviewArea"></div>
                 </div>
-
-                <div class="result-box" id="resultBox">
-                    <p>Upload PNG images to convert them to WEBP.</p>
-                </div>
-
-                <div class="converted-preview-area" id="convertedPreviewArea"></div>
             </div>
         </section>
     </main>
@@ -301,6 +139,12 @@
         const clearAllBtn = document.getElementById('clearAllBtn');
         const resultBox = document.getElementById('resultBox');
         const webpQualityInput = document.getElementById('webpQuality');
+        const convertedPreviewArea = document.getElementById('convertedPreviewArea');
+
+        // Modal elements
+        const imageModal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+        const closeModal = document.getElementsByClassName('close-modal')[0];
 
         let filesToConvert = [];
         let convertedFiles = []; // To store converted WEBP blobs and filenames
@@ -326,6 +170,17 @@
 
         convertBtn.addEventListener('click', convertImagesToWebP);
         clearAllBtn.addEventListener('click', clearAll);
+
+        // Modal event listeners
+        closeModal.onclick = function() {
+            imageModal.style.display = "none";
+        }
+
+        imageModal.onclick = function(event) {
+            if (event.target === imageModal) {
+                imageModal.style.display = "none";
+            }
+        }
 
         function preventDefaults(e) {
             e.preventDefault();
@@ -363,6 +218,7 @@
 
                 const img = document.createElement('img');
                 img.src = reader.result;
+                img.onclick = () => openModal(img.src);
 
                 const removeBtn = document.createElement('button');
                 removeBtn.classList.add('remove-btn');
@@ -402,7 +258,6 @@
             convertedFiles = []; // Clear previous conversions
 
             const webpQuality = parseFloat(webpQualityInput.value);
-            let downloadLinksHtml = '';
 
             for (const file of filesToConvert) {
                 const img = new Image();
@@ -420,7 +275,6 @@
                 const webpFileName = file.name.replace(/\.[^/.]+$/, '') + '.webp';
                 
                 convertedFiles.push({ blob: webpBlob, filename: webpFileName });
-                downloadLinksHtml += `<button class="btn-primary" onclick="downloadConvertedFile(convertedFiles[${convertedFiles.length - 1}].blob, convertedFiles[${convertedFiles.length - 1}].filename)">${webpFileName}</button>`;
             }
 
             resultBox.innerHTML = '<p>Conversion successful! Download your files:</p>';
@@ -433,6 +287,7 @@
                 const imgElement = document.createElement('img');
                 imgElement.src = URL.createObjectURL(convertedFile.blob);
                 imgElement.alt = convertedFile.filename;
+                imgElement.onclick = () => openModal(imgElement.src);
 
                 const downloadBtn = document.createElement('button');
                 downloadBtn.classList.add('btn-primary');
@@ -468,8 +323,20 @@
             updateConvertButtonState();
         }
 
+        function openModal(imageSrc) {
+            modalImage.src = imageSrc;
+            imageModal.style.display = "none"; // Hide modal initially
+            imageModal.style.display = "block";
+        }
+
         // Initial state
         updateConvertButtonState();
     </script>
 </body>
 </html>
+
+<!-- Image Modal Structure -->
+<div id="imageModal" class="modal">
+    <span class="close-modal">&times;</span>
+    <img class="modal-content" id="modalImage">
+</div>

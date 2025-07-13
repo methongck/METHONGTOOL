@@ -72,7 +72,7 @@
     <header>
         <div class="container header-content">
             <div class="logo">
-                <span class="logo-methong">METHONG</span> TOOLS
+                <a href="../index.html"><span class="logo-methong">METHONG</span> TOOLS</a>
             </div>
             <nav class="main-nav">
                 <ul class="nav-links">
@@ -110,9 +110,9 @@
                 <label for="dobInput">Enter Date of Birth:</label>
                 <input type="date" id="dobInput">
 
-                <button class="btn-primary" onclick="calculateAge()">Calculate Age</button>
+                <button class="btn-primary" id="calculateBtn">Calculate Age</button>
 
-                <div class="result-box" id="resultBox">
+                <div class="result-box" id="ageResult">
                     <p>Your age will appear here.</p>
                 </div>
             </div>
@@ -161,28 +161,6 @@
     </footer>
 
     <script src="../js/script.js"></script>
-    <script>
-        function calculateAge() {
-            const dobInput = document.getElementById('dobInput').value;
-            const resultBox = document.getElementById('resultBox');
-
-            if (dobInput === '') {
-                alert('Please enter your date of birth.');
-                return;
-            }
-
-            const dob = new Date(dobInput);
-            const today = new Date();
-
-            let age = today.getFullYear() - dob.getFullYear();
-            const monthDiff = today.getMonth() - dob.getMonth();
-
-            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
-                age--;
-            }
-
-            resultBox.innerHTML = `<p>Your age is: <strong>${age} years</strong></p>`;
-        }
-    </script>
+    
 </body>
 </html>

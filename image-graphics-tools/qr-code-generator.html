@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <!-- QR Code Library -->
     <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     <style>
         .tool-page-content {
             padding: 80px 20px;
@@ -84,7 +85,7 @@
     <header>
         <div class="container header-content">
             <div class="logo">
-                <span class="logo-methong">METHONG</span> TOOLS
+                <a href="../index.html"><span class="logo-methong">METHONG</span> TOOLS</a>
             </div>
             <nav class="main-nav">
                 <ul class="nav-links">
@@ -118,16 +119,22 @@
     <main>
         <section class="tool-page-content">
             <h1>QR Code Generator</h1>
-            <div class="tool-container">
-                <label for="qrTextInput">Enter Text or URL for QR Code:</label>
-                <textarea id="qrTextInput" placeholder="Type your text or URL here..."></textarea>
+            <div class="tool-content-wrapper">
+                <div class="converter-container input-section">
+                    <h1>QR Code Generator</h1>
+                    <label for="qrTextInput">Enter Text or URL for QR Code:</label>
+                    <textarea id="qrTextInput" placeholder="Type your text or URL here..."></textarea>
 
-                <button class="btn-primary" onclick="generateQrCode()">Generate QR Code</button>
+                    <button class="btn-primary" onclick="generateQrCode()">Generate QR Code</button>
 
-                <div id="qrcode"></div>
-
-                <div class="result-box" id="resultBox">
-                    <p>Enter text or a URL and click 'Generate QR Code'.</p>
+                    <div class="result-box" id="resultBox">
+                        <p>Enter text or a URL and click 'Generate QR Code'.</p>
+                    </div>
+                </div>
+                <div class="output-display-area">
+                    <h2>Generated QR Code</h2>
+                    <div id="qrcode"></div>
+                    <button class="btn-primary" id="downloadQrCodeBtn" style="display:none;">Download QR Code</button>
                 </div>
             </div>
         </section>
@@ -175,11 +182,33 @@
     </footer>
 
     <script src="../js/script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     <script>
+        const downloadQrCodeBtn = document.getElementById('downloadQrCodeBtn');
+        const qrcodeDiv = document.getElementById('qrcode');
+        const resultBox = document.getElementById('resultBox');
+
+        // Modal elements
+        const imageModal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+        const closeModal = document.getElementsByClassName('close-modal')[0];
+
+        let qrCodeBlob = null;
+        let qrCodeFilename = 'qrcode.png';
+
+        // Modal event listeners
+        closeModal.onclick = function() {
+            imageModal.style.display = "none";
+        }
+
+        imageModal.onclick = function(event) {
+            if (event.target === imageModal) {
+                imageModal.style.display = "none";
+            }
+        }
+
         function generateQrCode() {
             const qrTextInput = document.getElementById('qrTextInput').value.trim();
-            const qrcodeDiv = document.getElementById('qrcode');
-            const resultBox = document.getElementById('resultBox');
 
             if (qrTextInput === '') {
                 alert('Please enter text or a URL to generate QR Code.');
@@ -188,8 +217,9 @@
 
             qrcodeDiv.innerHTML = ''; // Clear previous QR code
             resultBox.innerHTML = '<p>Generating QR Code...</p>';
+            downloadQrCodeBtn.style.display = 'none';
 
-            new QRCode(qrcodeDiv, {
+            const qrcode = new QRCode(qrcodeDiv, {
                 text: qrTextInput,
                 width: 256,
                 height: 256,
@@ -198,8 +228,40 @@
                 correctLevel: QRCode.CorrectLevel.H
             });
 
-            resultBox.innerHTML = '<p>QR Code generated successfully!</p>';
+            // The QR code is generated asynchronously, so we need a small delay
+            setTimeout(() => {
+                const canvas = qrcodeDiv.querySelector('canvas');
+                if (canvas) {
+                    canvas.toBlob(function(blob) {
+                        qrCodeBlob = blob;
+                        const img = document.createElement('img');
+                        img.src = URL.createObjectURL(blob);
+                        img.style.maxWidth = '100%';
+                        img.style.height = 'auto';
+                        img.onclick = () => openModal(img.src);
+                        qrcodeDiv.innerHTML = ''; // Clear canvas and append img
+                        qrcodeDiv.appendChild(img);
+
+                        downloadQrCodeBtn.style.display = 'block';
+                        downloadQrCodeBtn.onclick = () => saveAs(qrCodeBlob, qrCodeFilename);
+                        resultBox.innerHTML = '<p>QR Code generated successfully!</p>';
+                    }, 'image/png');
+                } else {
+                    resultBox.innerHTML = '<p>Error: Could not generate QR Code image.</p>';
+                }
+            }, 100); // Small delay to ensure canvas is rendered
+        }
+
+        function openModal(imageSrc) {
+            modalImage.src = imageSrc;
+            imageModal.style.display = "block";
         }
     </script>
 </body>
 </html>
+
+<!-- Image Modal Structure -->
+<div id="imageModal" class="modal">
+    <span class="close-modal">&times;</span>
+    <img class="modal-content" id="modalImage">
+</div>

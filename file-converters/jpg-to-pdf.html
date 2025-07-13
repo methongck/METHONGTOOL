@@ -172,7 +172,7 @@
     <header>
         <div class="container header-content">
             <div class="logo">
-                <span class="logo-methong">METHONG</span> TOOLS
+                <a href="../index.html"><span class="logo-methong">METHONG</span> TOOLS</a>
             </div>
             <nav class="main-nav">
                 <ul class="nav-links">
@@ -206,35 +206,44 @@
     <main>
         <section class="tool-page-content">
             <h1>JPG to PDF Converter</h1>
-            <div class="converter-container">
-                <div class="drag-drop-area" id="dragDropArea">
-                    <i class="fas fa-file-image fa-3x"></i>
-                    <p>Drag & Drop your JPG images here</p>
-                    <p>or</p>
-                    <label for="fileInput" class="file-input-btn">Browse Files</label>
-                    <input type="file" id="fileInput" accept=".jpg,.jpeg" multiple>
-                </div>
-
-                <div class="preview-area" id="previewArea"></div>
-
-                <div class="options-section">
-                    <h3>Conversion Options</h3>
-                    <div>
-                        <label for="pdfWidth">PDF Width (px):</label>
-                        <input type="number" id="pdfWidth" value="595">
-                        <label for="pdfHeight">PDF Height (px):</label>
-                        <input type="number" id="pdfHeight" value="842">
+            <div class="tool-content-wrapper">
+                <div class="converter-container input-section">
+                    <h1>JPG to PDF Converter</h1>
+                    <div class="drag-drop-area" id="dragDropArea">
+                        <i class="fas fa-file-image fa-3x"></i>
+                        <p>Drag & Drop your JPG images here</p>
+                        <p>or</p>
+                        <label for="fileInput" class="file-input-btn">Browse Files</label>
+                        <input type="file" id="fileInput" accept=".jpg,.jpeg" multiple>
                     </div>
-                    <p style="margin-top: 10px; font-size: 0.9em; color: #888;">Standard A4 size: 595x842 pixels</p>
-                </div>
 
-                <div class="action-buttons">
-                    <button class="btn-primary" id="convertBtn">Convert to PDF</button>
-                    <button class="btn-secondary" id="clearAllBtn">Clear All</button>
-                </div>
+                    <div class="preview-area" id="previewArea"></div>
 
-                <div class="result-box" id="resultBox">
-                    <p>Upload JPG images to convert them to PDF.</p>
+                    <div class="options-section">
+                        <h3>Conversion Options</h3>
+                        <div>
+                            <label for="pdfWidth">PDF Width (px):</label>
+                            <input type="number" id="pdfWidth" value="595">
+                            <label for="pdfHeight">PDF Height (px):</label>
+                            <input type="number" id="pdfHeight" value="842">
+                        </div>
+                        <p style="margin-top: 10px; font-size: 0.9em; color: #888;">Standard A4 size: 595x842 pixels</p>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn-primary" id="convertBtn">Convert to PDF</button>
+                        <button class="btn-secondary" id="clearAllBtn">Clear All</button>
+                    </div>
+
+                    <div class="result-box" id="resultBox">
+                        <p>Upload JPG images to convert them to PDF.</p>
+                    </div>
+                </div>
+                <div class="output-display-area">
+                    <h2>Converted PDF</h2>
+                    <div id="pdfOutputArea">
+                        <p>Your converted PDF will appear here.</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -291,6 +300,12 @@
         const resultBox = document.getElementById('resultBox');
         const pdfWidthInput = document.getElementById('pdfWidth');
         const pdfHeightInput = document.getElementById('pdfHeight');
+        const pdfOutputArea = document.getElementById('pdfOutputArea');
+
+        // Modal elements
+        const imageModal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+        const closeModal = document.getElementsByClassName('close-modal')[0];
 
         let filesToConvert = [];
         let convertedPdfBlob = null; // To store the converted PDF blob
@@ -317,6 +332,17 @@
 
         convertBtn.addEventListener('click', convertImagesToPdf);
         clearAllBtn.addEventListener('click', clearAll);
+
+        // Modal event listeners
+        closeModal.onclick = function() {
+            imageModal.style.display = "none";
+        }
+
+        imageModal.onclick = function(event) {
+            if (event.target === imageModal) {
+                imageModal.style.display = "none";
+            }
+        }
 
         function preventDefaults(e) {
             e.preventDefault();
@@ -358,6 +384,7 @@
 
                 const img = document.createElement('img');
                 img.src = reader.result;
+                img.onclick = () => openModal(img.src);
                 console.log('Image src set to:', img.src.substring(0, 50) + '...'); // Log first 50 chars of data URL
 
                 const removeBtn = document.createElement('button');
@@ -420,7 +447,8 @@
             convertedPdfBlob = doc.output('blob');
             convertedPdfFileName = 'converted-images.pdf';
 
-            resultBox.innerHTML = `<p>Conversion successful! <button class="btn-primary" onclick="downloadConvertedPdf()">Download ${convertedPdfFileName}</button></p>`;
+            resultBox.innerHTML = '<p>Conversion successful!</p>';
+            displayConvertedPdf(convertedPdfBlob, convertedPdfFileName);
             convertBtn.disabled = false;
         }
 
@@ -432,12 +460,22 @@
             });
         }
 
-        function downloadConvertedPdf() {
-            if (convertedPdfBlob && convertedPdfFileName) {
-                saveAs(convertedPdfBlob, convertedPdfFileName);
-            } else {
-                alert('No PDF to download. Please convert images first.');
-            }
+        function displayConvertedPdf(blob, filename) {
+            pdfOutputArea.innerHTML = ''; // Clear previous content
+
+            const iframe = document.createElement('iframe');
+            iframe.src = URL.createObjectURL(blob);
+            iframe.style.width = '100%';
+            iframe.style.height = '500px'; // Adjust height as needed
+            iframe.style.border = 'none';
+
+            const downloadBtn = document.createElement('button');
+            downloadBtn.classList.add('btn-primary');
+            downloadBtn.textContent = `Download ${filename}`;
+            downloadBtn.onclick = () => saveAs(blob, filename);
+
+            pdfOutputArea.appendChild(iframe);
+            pdfOutputArea.appendChild(downloadBtn);
         }
 
         function clearAll() {
@@ -445,8 +483,14 @@
             convertedPdfBlob = null; // Reset blob
             convertedPdfFileName = ''; // Reset filename
             previewArea.innerHTML = '';
+            pdfOutputArea.innerHTML = '<p>Your converted PDF will appear here.</p>'; // Clear PDF display
             resultBox.innerHTML = '<p>Upload JPG images to convert them to PDF.</p>';
             updateConvertButtonState();
+        }
+
+        function openModal(imageSrc) {
+            modalImage.src = imageSrc;
+            imageModal.style.display = "block";
         }
 
         // Initial state
@@ -454,3 +498,9 @@
     </script>
 </body>
 </html>
+
+<!-- Image Modal Structure -->
+<div id="imageModal" class="modal">
+    <span class="close-modal">&times;</span>
+    <img class="modal-content" id="modalImage">
+</div>
