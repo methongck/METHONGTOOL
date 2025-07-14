@@ -1,0 +1,1 @@
+feat: Implement age calculator, currency converter (pure JS), update all HTML files with clickable logo, add icons to all tool cards, and refine responsive design.
