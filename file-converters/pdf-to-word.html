@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDF to Text Converter - Convert PDF Documents to Text | MT FREE Tools</title>
-    <meta name="description" content="Convert your PDF documents to plain text files quickly and easily with our free online PDF to Text converter. Extract text content efficiently with MT FREE Tools.">
-    <meta name="keywords" content="pdf to text, convert pdf, pdf to plain text, text converter, free pdf converter, online tools, free tools">
+    <title>PDF to Word Converter - Convert PDF Documents to Word | MT FREE Tools</title>
+    <meta name="description" content="Convert your PDF documents to editable Word files quickly and easily with our free online PDF to Word converter. Maintain formatting and content with MT FREE Tools.">
+    <meta name="keywords" content="pdf to word, convert pdf, pdf to docx, word converter, free pdf converter, online tools, free tools">
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -23,28 +23,15 @@
       },{
         "@type": "ListItem",
         "position": 3,
-        "name": "PDF to Text Converter",
-        "item": "https://methong-tool.onrender.com/file-converters/pdf-to-text.html"
+        "name": "PDF to Word Converter",
+        "item": "https://methong-tool.onrender.com/file-converters/pdf-to-word.html"
       }]
     }
     </script>
-    <link rel="canonical" href="https://methong-tool.onrender.com/file-converters/pdf-to-text.html">
+    <link rel="canonical" href="https://methong-tool.onrender.com/file-converters/pdf-to-word.html">
     <link rel="stylesheet" href="../css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://methong-tool.onrender.com/file-converters/pdf-to-text.html">
-    <meta property="og:title" content="PDF to Text Converter - Convert PDF Documents to Text | MT FREE Tools">
-    <meta property="og:description" content="Convert your PDF documents to plain text files quickly and easily with our free online PDF to Text converter. Extract text content efficiently with MT FREE Tools.">
-    <meta property="og:image" content="https://methong-tool.onrender.com/images/file-converters.png">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://methong-tool.onrender.com/file-converters/pdf-to-text.html">
-    <meta property="twitter:title" content="PDF to Text Converter - Convert PDF Documents to Text | MT FREE Tools">
-    <meta property="twitter:description" content="Convert your PDF documents to plain text files quickly and easily with our free online PDF to Text converter. Extract text content efficiently with MT FREE Tools.">
-    <meta property="twitter:image" content="https://methong-tool.onrender.com/images/file-converters.png">
     <!-- FileSaver.js for saving files -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     <style>
@@ -235,7 +222,7 @@
 
     <main>
         <section class="tool-page-content">
-            <h1>PDF to Text Converter</h1>
+            <h1>PDF to Word Converter</h1>
             <div class="converter-container">
                 <div class="drag-drop-area" id="dragDropArea">
                     <i class="fas fa-file-pdf fa-3x"></i>
@@ -248,12 +235,12 @@
                 <div class="preview-area" id="previewArea"></div>
 
                 <div class="action-buttons">
-                    <button class="btn-primary" id="convertBtn">Convert to Text</button>
+                    <button class="btn-primary" id="convertBtn">Convert to Word</button>
                     <button class="btn-secondary" id="clearAllBtn">Clear All</button>
                 </div>
 
                 <div class="result-box" id="resultBox">
-                    <p>Upload PDF files to convert them to Text.</p>
+                    <p>Upload PDF files to convert them to Word.</p>
                 </div>
             </div>
         </section>
@@ -328,7 +315,7 @@
 
         // Handle dropped files
         dragDropArea.addEventListener('drop', handleDrop, false);
-        fileInput.addEventListener('change', handleFiles, false);
+        fileInput.addEventListener('change', (e) => handleFiles(e.target.files), false);
 
         convertBtn.addEventListener('click', convertFiles);
         clearAllBtn.addEventListener('click', clearAll);
@@ -403,12 +390,12 @@
                 return;
             }
 
-            resultBox.innerHTML = '<p>Converting PDF files to Text...</p>';
+            resultBox.innerHTML = '<p>Converting PDF files to Word...</p>';
             convertBtn.disabled = true;
 
             // Simulate conversion process
             setTimeout(() => {
-                const convertedFileName = filesToConvert[0].name.replace(/\.[^/.]+$/, '') + '.txt';
+                const convertedFileName = filesToConvert[0].name.replace(/\.[^/.]+$/, '') + '.docx';
                 resultBox.innerHTML = `<p>Conversion successful! <a href="#" onclick="downloadPlaceholder('${convertedFileName}')">Download ${convertedFileName}</a></p>`;
                 convertBtn.disabled = false;
             }, 1500);
@@ -421,7 +408,7 @@
         function clearAll() {
             filesToConvert = [];
             previewArea.innerHTML = '';
-            resultBox.innerHTML = '<p>Upload PDF files to convert them to Text.</p>';
+            resultBox.innerHTML = '<p>Upload PDF files to convert them to Word.</p>';
             updateConvertButtonState();
         }
 

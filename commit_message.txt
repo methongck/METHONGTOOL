@@ -1,1 +1,11 @@
-feat: Implement age calculator, currency converter (pure JS), update all HTML files with clickable logo, add icons to all tool cards, and refine responsive design.
+feat: Implement comprehensive SEO enhancements
+
+This commit introduces a series of SEO improvements across the website, including:
+
+- Updated meta titles, descriptions, and keywords for `index.html` and all tool pages to improve search engine visibility and relevance.
+- Added Open Graph and Twitter Card meta tags to `index.html` for enhanced social media sharing.
+- Integrated Schema Markup (WebSite) into `index.html` to provide structured data to search engines.
+- Created `robots.txt` to guide search engine crawlers.
+- Generated `sitemap.xml` to help search engines discover and index all relevant pages.
+
+These changes aim to boost the website's search ranking and overall online presence.
