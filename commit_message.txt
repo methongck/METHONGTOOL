@@ -1,3 +1,1 @@
-feat: Add Google site verification meta tag to index.html
-
-This commit adds the Google site verification meta tag to the <head> section of index.html, as requested by the user. This is a crucial step for verifying website ownership with Google Search Console.
+Add Google Search Console meta tag and HTML verification file
