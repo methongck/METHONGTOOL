@@ -1,1 +1,4 @@
-Add Google Search Console meta tag and HTML verification file
+feat: Add favicon to all HTML pages
+
+Adds a favicon to all HTML files by including a link tag in the <head> section.
+The favicon image used is 'images/Screenshot 2025-07-16 092409.png'.
