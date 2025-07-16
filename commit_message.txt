@@ -1,11 +1,3 @@
-feat: Implement comprehensive SEO enhancements
+feat: Add Google site verification meta tag to index.html
 
-This commit introduces a series of SEO improvements across the website, including:
-
-- Updated meta titles, descriptions, and keywords for `index.html` and all tool pages to improve search engine visibility and relevance.
-- Added Open Graph and Twitter Card meta tags to `index.html` for enhanced social media sharing.
-- Integrated Schema Markup (WebSite) into `index.html` to provide structured data to search engines.
-- Created `robots.txt` to guide search engine crawlers.
-- Generated `sitemap.xml` to help search engines discover and index all relevant pages.
-
-These changes aim to boost the website's search ranking and overall online presence.
+This commit adds the Google site verification meta tag to the <head> section of index.html, as requested by the user. This is a crucial step for verifying website ownership with Google Search Console.
