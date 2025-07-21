@@ -1,4 +1,6 @@
-feat: Add favicon to all HTML pages
+feat: Add new blog posts and update existing ones with placeholder images
 
-Adds a favicon to all HTML files by including a link tag in the <head> section.
-The favicon image used is 'images/Screenshot 2025-07-16 092409.png'.
+Adds new blog posts for File Converter, Text Tools, Security & Password Tools,
+Conversion & Calculator tools, Proxy & IP Tools, Image and Graphics Tools,
+and Developer Tools. Updates existing blog posts to use placeholder images.
+Also updates blog.html to link to the new posts.

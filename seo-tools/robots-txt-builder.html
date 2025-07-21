@@ -189,6 +189,33 @@
                 <label for="robotsTxtOutput">Generated robots.txt:</label>
                 <textarea id="robotsTxtOutput" readonly rows="15" class="robots-output"></textarea>
             </div>
+
+            <div class="tool-description">
+                <h2>About Our Robots.txt Builder</h2>
+                <p>Our free online Robots.txt Builder helps you easily create and customize a robots.txt file for your website. A robots.txt file is a text file that webmasters create to instruct web robots (commonly known as search engine crawlers) how to crawl pages on their website. It's a crucial part of SEO, allowing you to manage crawler traffic, prevent indexing of certain areas, and point to your sitemap, ensuring search engines efficiently crawl your site.</p>
+
+                <h2>How to Use the Robots.txt Builder</h2>
+                <ol>
+                    <li><strong>Specify User-agent:</strong> Enter the user-agent you want to address (e.g., <code>*</code> for all robots, or a specific bot like <code>Googlebot</code>).</li>
+                    <li><strong>Define Allow Paths:</strong> List the paths you want search engines to crawl, one per line.</li>
+                    <li><strong>Define Disallow Paths:</strong> List the paths you want search engines to avoid crawling, one per line.</li>
+                    <li><strong>Add Sitemap URL (Optional):</strong> Provide the full URL to your sitemap.xml file.</li>
+                    <li><strong>Generate Robots.txt:</strong> Click "Generate Robots.txt" to see the generated content.</li>
+                    <li><strong>Copy and Implement:</strong> Copy the generated text and save it as <code>robots.txt</code> in the root directory of your website.</li>
+                </ol>
+
+                <h2>Frequently Asked Questions (FAQ)</h2>
+                <dl>
+                    <dt>What is robots.txt?</dt>
+                    <dd>Robots.txt is a file at the root of your website that tells search engine crawlers which URLs they can access on your site. It's part of the Robots Exclusion Protocol.</dd>
+
+                    <dt>Why is robots.txt important for SEO?</dt>
+                    <dd>It helps manage crawl budget by preventing crawlers from wasting time on unimportant or duplicate pages, ensuring that valuable pages are indexed. It also prevents sensitive areas of your site from being crawled.</dd>
+
+                    <dt>Can robots.txt prevent a page from being indexed?</dt>
+                    <dd>No, robots.txt only prevents crawling. To prevent a page from being indexed, you should use a <code>noindex</code> meta tag or an X-Robots-Tag HTTP header.</dd>
+                </dl>
+            </div>
         </section>
     </main>
 
