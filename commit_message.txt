@@ -1,6 +1,1 @@
-feat: Add new blog posts and update existing ones with placeholder images
-
-Adds new blog posts for File Converter, Text Tools, Security & Password Tools,
-Conversion & Calculator tools, Proxy & IP Tools, Image and Graphics Tools,
-and Developer Tools. Updates existing blog posts to use placeholder images.
-Also updates blog.html to link to the new posts.
+feat: Improve SEO content on all tool pages
