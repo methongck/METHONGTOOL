@@ -239,37 +239,36 @@
     <main>
         <section class="tool-page-content">
             <h1>PDF to JPG Converter</h1>
-            <div class="tool-content-wrapper">
-                <div class="converter-container input-section">
-                    <h1>PDF to JPG Converter</h1>
-                    <div class="drag-drop-area" id="dragDropArea">
-                        <i class="fas fa-file-pdf fa-3x"></i>
-                        <p>Drag & Drop your PDF files here</p>
-                        <p>or</p>
-                        <label for="fileInput" class="file-input-btn">Browse Files</label>
-                        <input type="file" id="fileInput" accept=".pdf" multiple>
-                    </div>
+            <div class="image-tool-container">
+                <h1>PDF to JPG Converter</h1>
+                <div class="drag-drop-area" id="dragDropArea">
+                    <i class="fas fa-file-pdf fa-3x"></i>
+                    <p>Drag & Drop your PDF files here</p>
+                    <p>or</p>
+                    <label for="fileInput" class="file-input-btn">Browse Files</label>
+                    <input type="file" id="fileInput" accept=".pdf" multiple>
+                </div>
 
-                    <div class="preview-area" id="previewArea"></div>
+                <div class="preview-area" id="previewArea"></div>
 
-                    <div class="options-section">
-                        <h3>Conversion Options</h3>
-                        <div>
-                            <label for="jpegQuality">JPEG Quality (0-1):</label>
-                            <input type="number" id="jpegQuality" value="0.9" step="0.1" min="0" max="1">
-                        </div>
-                    </div>
-
-                    <div class="action-buttons">
-                        <button class="btn-primary" id="convertBtn">Convert to JPG</button>
-                        <button class="btn-secondary" id="clearAllBtn">Clear All</button>
-                    </div>
-
-                    <div class="result-box" id="resultBox">
-                        <p>Upload PDF files to convert them to JPG.</p>
+                <div class="options-section">
+                    <h3>Conversion Options</h3>
+                    <div>
+                        <label for="jpegQuality">JPEG Quality (0-1):</label>
+                        <input type="number" id="jpegQuality" value="0.9" step="0.1" min="0" max="1">
                     </div>
                 </div>
-                <div class="output-display-area">
+
+                <div class="action-buttons">
+                    <button class="btn-primary" id="convertBtn">Convert to JPG</button>
+                    <button class="btn-secondary" id="clearAllBtn">Clear All</button>
+                </div>
+
+                <div class="result-box" id="resultBox">
+                    <p>Upload PDF files to convert them to JPG.</p>
+                </div>
+
+                <div class="converted-images-section">
                     <h2>Converted Images</h2>
                     <div class="converted-preview-area" id="convertedPreviewArea"></div>
                 </div>
@@ -318,6 +317,7 @@
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <script src="../js/script.js"></script>
     <script>
         const dragDropArea = document.getElementById('dragDropArea');
@@ -397,25 +397,31 @@
         }
 
         function previewFile(file) {
-            const filePreview = document.createElement('div');
-            filePreview.classList.add('file-preview');
-            filePreview.dataset.filename = file.name; // Store filename for removal
+            const imgPreview = document.createElement('div');
+            imgPreview.classList.add('image-preview'); /* Changed from file-preview */
+            imgPreview.dataset.filename = file.name; // Store filename for removal
 
+            const imgWrapper = document.createElement('div');
+            imgWrapper.classList.add('image-wrapper');
             const fileIcon = document.createElement('i');
             fileIcon.classList.add('fas', 'fa-file-pdf', 'file-icon');
+            imgWrapper.appendChild(fileIcon);
 
             const fileNameSpan = document.createElement('span');
             fileNameSpan.textContent = file.name;
+            imgWrapper.appendChild(fileNameSpan);
 
+            const buttonWrapper = document.createElement('div');
+            buttonWrapper.classList.add('button-wrapper');
             const removeBtn = document.createElement('button');
             removeBtn.classList.add('remove-btn');
             removeBtn.innerHTML = '&times;';
-            removeBtn.onclick = () => removeFile(file.name, filePreview);
+            removeBtn.onclick = () => removeFile(file.name, imgPreview);
+            buttonWrapper.appendChild(removeBtn);
 
-            filePreview.appendChild(fileIcon);
-            filePreview.appendChild(fileNameSpan);
-            filePreview.appendChild(removeBtn);
-            previewArea.appendChild(filePreview);
+            imgPreview.appendChild(imgWrapper);
+            imgPreview.appendChild(buttonWrapper);
+            previewArea.appendChild(imgPreview);
         }
 
         function removeFile(filename, previewElement) {
@@ -464,18 +470,24 @@
                 const imgPreviewContainer = document.createElement('div');
                 imgPreviewContainer.classList.add('image-preview');
 
+                const imgWrapper = document.createElement('div');
+                imgWrapper.classList.add('image-wrapper');
                 const imgElement = document.createElement('img');
                 imgElement.src = URL.createObjectURL(convertedJpg.blob);
                 imgElement.alt = convertedJpg.filename;
                 imgElement.onclick = () => openModal(imgElement.src);
+                imgWrapper.appendChild(imgElement);
 
+                const buttonWrapper = document.createElement('div');
+                buttonWrapper.classList.add('button-wrapper');
                 const downloadBtn = document.createElement('button');
-                downloadBtn.classList.add('btn-primary');
+                downloadBtn.classList.add('btn-primary', 'download-button-block');
                 downloadBtn.textContent = `Download ${convertedJpg.filename}`;
                 downloadBtn.onclick = () => downloadConvertedJpg(convertedJpg.blob, convertedJpg.filename);
+                buttonWrapper.appendChild(downloadBtn);
 
-                imgPreviewContainer.appendChild(imgElement);
-                imgPreviewContainer.appendChild(downloadBtn);
+                imgPreviewContainer.appendChild(imgWrapper);
+                imgPreviewContainer.appendChild(buttonWrapper);
                 convertedPreviewArea.appendChild(imgPreviewContainer);
             }
 

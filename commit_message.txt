@@ -1,1 +1,1 @@
-feat: Improve SEO content on all tool pages
+feat: Enhance SEO for 'methongtools' and 'mt free tools' on homepage

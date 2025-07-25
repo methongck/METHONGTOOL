@@ -245,44 +245,41 @@
     <main>
         <section class="tool-page-content">
             <h1>JPG to PDF Converter</h1>
-            <div class="tool-content-wrapper">
-                <div class="converter-container input-section">
-                    <h1>JPG to PDF Converter</h1>
-                    <div class="drag-drop-area" id="dragDropArea">
-                        <i class="fas fa-file-image fa-3x"></i>
-                        <p>Drag & Drop your JPG images here</p>
-                        <p>or</p>
-                        <label for="fileInput" class="file-input-btn">Browse Files</label>
-                        <input type="file" id="fileInput" accept=".jpg,.jpeg" multiple>
-                    </div>
-
-                    <div class="preview-area" id="previewArea"></div>
-
-                    <div class="options-section">
-                        <h3>Conversion Options</h3>
-                        <div>
-                            <label for="pdfWidth">PDF Width (px):</label>
-                            <input type="number" id="pdfWidth" value="595">
-                            <label for="pdfHeight">PDF Height (px):</label>
-                            <input type="number" id="pdfHeight" value="842">
-                        </div>
-                        <p style="margin-top: 10px; font-size: 0.9em; color: #888;">Standard A4 size: 595x842 pixels</p>
-                    </div>
-
-                    <div class="action-buttons">
-                        <button class="btn-primary" id="convertBtn">Convert to PDF</button>
-                        <button class="btn-secondary" id="clearAllBtn">Clear All</button>
-                    </div>
-
-                    <div class="result-box" id="resultBox">
-                        <p>Upload JPG images to convert them to PDF.</p>
-                    </div>
+            <div class="image-tool-container">
+                <h1>JPG to PDF Converter</h1>
+                <div class="drag-drop-area" id="dragDropArea">
+                    <i class="fas fa-file-image fa-3x"></i>
+                    <p>Drag & Drop your JPG images here</p>
+                    <p>or</p>
+                    <label for="fileInput" class="file-input-btn">Browse Files</label>
+                    <input type="file" id="fileInput" accept=".jpg,.jpeg" multiple>
                 </div>
-                <div class="output-display-area">
-                    <h2>Converted PDF</h2>
-                    <div id="pdfOutputArea">
-                        <p>Your converted PDF will appear here.</p>
+
+                <div class="preview-area" id="previewArea"></div>
+
+                <div class="options-section">
+                    <h3>Conversion Options</h3>
+                    <div>
+                        <label for="pdfWidth">PDF Width (px):</label>
+                        <input type="number" id="pdfWidth" value="595">
+                        <label for="pdfHeight">PDF Height (px):</label>
+                        <input type="number" id="pdfHeight" value="842">
                     </div>
+                    <p style="margin-top: 10px; font-size: 0.9em; color: #888;">Standard A4 size: 595x842 pixels</p>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn-primary" id="convertBtn">Convert to PDF</button>
+                    <button class="btn-secondary" id="clearAllBtn">Clear All</button>
+                </div>
+
+                <div class="result-box" id="resultBox">
+                    <p>Upload JPG images to convert them to PDF.</p>
+                </div>
+
+                <div class="converted-images-section">
+                    <h2>Converted PDF</h2>
+                    <div id="pdfOutputArea"></div>
                 </div>
             </div>
 
@@ -354,6 +351,7 @@
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <script src="../js/script.js"></script>
     <script>
         const dragDropArea = document.getElementById('dragDropArea');
@@ -446,18 +444,23 @@
                 imgPreview.classList.add('image-preview');
                 imgPreview.dataset.filename = file.name; // Store filename for removal
 
+                const imgWrapper = document.createElement('div');
+                imgWrapper.classList.add('image-wrapper');
                 const img = document.createElement('img');
                 img.src = reader.result;
                 img.onclick = () => openModal(img.src);
-                console.log('Image src set to:', img.src.substring(0, 50) + '...'); // Log first 50 chars of data URL
+                imgWrapper.appendChild(img);
 
+                const buttonWrapper = document.createElement('div');
+                buttonWrapper.classList.add('button-wrapper');
                 const removeBtn = document.createElement('button');
                 removeBtn.classList.add('remove-btn');
                 removeBtn.innerHTML = '&times;';
                 removeBtn.onclick = () => removeFile(file.name, imgPreview);
+                buttonWrapper.appendChild(removeBtn);
 
-                imgPreview.appendChild(img);
-                imgPreview.appendChild(removeBtn);
+                imgPreview.appendChild(imgWrapper);
+                imgPreview.appendChild(buttonWrapper);
                 previewArea.appendChild(imgPreview);
             };
             reader.onerror = function(error) {
@@ -534,7 +537,7 @@
             iframe.style.border = 'none';
 
             const downloadBtn = document.createElement('button');
-            downloadBtn.classList.add('btn-primary');
+            downloadBtn.classList.add('btn-primary', 'download-button-block');
             downloadBtn.textContent = `Download ${filename}`;
             downloadBtn.onclick = () => saveAs(blob, filename);
 
